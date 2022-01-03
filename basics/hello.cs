@@ -1,7 +1,8 @@
 using System;
 using System.Collections.Generic;
+using World;
 
-namespace MyApplication
+namespace Hello
 {
     class Car
     {
@@ -58,6 +59,28 @@ namespace MyApplication
             }
         }
 
+        public string method5()
+        {
+            // usde "this"
+            string somestring = "OK";
+            this.color = "new color";
+            return this.method3("~Man") + somestring;
+        }
+
+    }
+
+    interface IVehicle
+    {
+        void makeSound();
+    }
+
+    class Truck : IVehicle
+    // Interface
+    {
+        public void makeSound()
+        {
+            Console.WriteLine("Vrooom");
+        }
     }
 
     class MyProgram
@@ -83,6 +106,14 @@ namespace MyApplication
             Console.WriteLine(myObj.Num);
             myObj.Num = 10;
             Console.WriteLine(myObj.Num);
+            Console.WriteLine(myObj.method5());
+            Console.WriteLine(myObj.color);
+
+            Truck truck = new Truck();
+            truck.makeSound();
+
+            World world = new SomeClass();
+            world.sayWorld();
 
         }
 
