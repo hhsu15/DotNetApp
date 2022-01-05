@@ -65,6 +65,12 @@ Now, finanlly, when you run:
 dotnet run
 ```
 
+Or even better, run:
+
+```bash
+dotnet watch run # this will reflect the file change and restart the server
+```
+
 and go to localhost:5001, it will not work. The way webapi works is you have to check `API/Controllers/WeatherForeCastControllers` and you will see the Controller's name. Take the part before the word Controller and use it as a path. So basically go to:
 
 ```
@@ -72,3 +78,7 @@ localhost:5001/weatherforecast
 ```
 
 And then you should be able to see the data!
+
+### swagger
+
+Webapi is integrated with swagger. Just go to this endpoint: `localhost:5001/swagger`

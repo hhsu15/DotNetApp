@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using World;
+//using World;
 
 namespace Hello
 {
@@ -112,8 +112,8 @@ namespace Hello
             Truck truck = new Truck();
             truck.makeSound();
 
-            World world = new SomeClass();
-            world.sayWorld();
+            // World world = new SomeClass();
+            // world.sayWorld();
 
         }
 
