@@ -82,3 +82,55 @@ And then you should be able to see the data!
 ### swagger
 
 Webapi is integrated with swagger. Just go to this endpoint: `localhost:5001/swagger`
+
+### Entity Framework
+
+The Microsoft ORM framework.
+
+We will need the package manager. first, search `nuget gallery` in extensions in VS code and instll it. Once done, we will use Command Palette and type `nuget`. Select the first one that pops up. Now you will be able to obtain libraries for C#!
+
+Here, we want to install `Microsoft.EntityFrameworkCore.SQlite`. By doing so, you will find in `API.csprog` file now shows the package reference.
+
+**tips for VS Code**
+
+- if you type `prop` and enter it will generate properties for now
+- When you get the red error line, click on the bolb icon and it provides a list of fixes or options to auto gerneate code for you. Like generating a constructor etc.
+- use `CMD + P` you can quickly search for a file so you don't have to look for it
+
+### Setting up SQL connection
+
+In the example, we will use SQLlite for our database. See `appsetting.Development.json` for configuration. The code will be in `Startup.cs`.
+Then, we will need to download dotnet-ef using the command from this [link](nuget.org/packages/dotnet-ef/). Basically the command looks like this:
+
+```bash
+dotnet tool install --global dotnet-ef --version 6.0.1
+```
+
+After we will make a migration which is going to create a database.
+Run this command:
+
+```bash
+
+dotnet ef miggrations add InitalCreate -o Data/Migrations
+```
+
+After running this you will get an error saying "Your startup project 'API' doesn't reference Microsoft.EntityFrameworkCore.Design. This package is required for the Entity Framework Core Tools to work. Ensure your startup project is correct, install the package, and try again."
+
+Ok, go the command palette and open nuget gallary and search for Microsoft.EntityFrameworkCore.Design.
+
+Now install it and then once you check API.csproj what's going to happen is this will be added as a reference in your project file (API.csproj). Now if you return the migration command it should work. Great!
+
+So the commpand used is not to actually create the database but rather create a bunch of classes under the `Data/Migrations` folder which will later on allow us to set up the databse or tear down the database at will.
+
+#### create database
+
+Now you can run below command to create a db.
+
+```bash
+dotnet ef database update
+```
+
+Now the database is created. To see the database and tables, we download the extension called "SQLite".
+Once download and you can run command palette and type SQLite to open the database. Then you will find some files have been created.
+
+You can then find that under Explorer there is a section called SQLITE EXPLORER. From there you can right click to run Query. We first use it to insert some records into the table.
