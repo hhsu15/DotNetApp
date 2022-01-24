@@ -135,6 +135,25 @@ Once download and you can run command palette and type SQLite to open the databa
 
 You can then find that under Explorer there is a section called SQLITE EXPLORER. From there you can right click to run Query. We first use it to insert some records into the table.
 
-## Use Async code
+### Use Async code
 
-For the api endpoint functions the best practice is to use make them asynchronous. This is can be done using the `async` keyword.
+For the api endpoint functions the best practice is to use make them asynchronous. This is can be done using the `async` keyword with `await`.
+
+## Angular
+
+First just make sure we have node.js greater than v16.10.
+
+Install angular:
+
+```bash
+
+npm install -g @angular/cli@12
+```
+
+To create an angular project, run
+
+```bash
+ng new client --strict  false
+```
+
+Now, go to the extensions and install `Angular Language Service`.
