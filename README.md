@@ -134,3 +134,7 @@ Now the database is created. To see the database and tables, we download the ext
 Once download and you can run command palette and type SQLite to open the database. Then you will find some files have been created.
 
 You can then find that under Explorer there is a section called SQLITE EXPLORER. From there you can right click to run Query. We first use it to insert some records into the table.
+
+## Use Async code
+
+For the api endpoint functions the best practice is to use make them asynchronous. This is can be done using the `async` keyword.

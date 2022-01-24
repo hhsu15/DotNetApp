@@ -34,6 +34,8 @@ namespace API
             // basically here to register the dependencies
             services.AddDbContext<DataContext>(options => // this is called the lambda expression
             {
+                // print the _config
+                Console.WriteLine(_config.GetConnectionString("DefaultConnection"));
                 options.UseSqlite(_config.GetConnectionString("DefaultConnection"));  // this will get you the connection string we set up in appsetting.Development.json
             });
             services.AddControllers();
