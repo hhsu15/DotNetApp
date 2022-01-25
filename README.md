@@ -157,3 +157,78 @@ ng new client --strict  false
 ```
 
 Now, go to the extensions and install `Angular Language Service`.
+
+To run the app, simply run
+
+```bash
+
+ng serve
+```
+
+### Interpolation
+
+Interpolation in angular means that you can render the data from `something.component.ts` file to the `something.component.html` using double curly brackets like {{title}}
+
+### Some VS code extension
+
+1. Angular Language Service
+2. Angular Code snippets
+3. Bracket Pair colorizer
+
+### HttpClient
+
+For angular app to make a http request we do something like this:
+
+```typescript
+// in app.component.ts
+// onInit is a lifecycle hook that gets called after data bound properties are created
+export class AppComponent implements OnInit {
+  title = 'Dating App';
+  users: any;
+
+  // constructor with HttpClient obj
+  constructor(private http: HttpClient) {}
+
+  // this is required method for OnInit
+  ngOnInit() {
+    this.getUsers();
+  }
+
+  // this is an async fucntion. This gets your "observable" which you then have to "subscirbe"
+  // to get the response.
+  getUsers() {
+    this.http.get('https://localhost:5001/api/users').subscribe(
+      response => {
+        this.users = response; // you then override the properties
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
+}
+```
+
+#### CORS
+
+In order to solve the issue for CORS, on the server side, we need to add this, refer to `Srartup.cs`:
+
+```
+services.AddCors();
+```
+
+### Angular Bootstrap
+
+Install angular bootstrap 4
+
+```bash
+ng add ngx-bootstrap
+```
+
+#### Install font-awesome
+
+```
+npm install font-awesome
+```
+
+### Use HTTPS in Mac (SSL)
