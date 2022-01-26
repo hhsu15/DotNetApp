@@ -2,7 +2,7 @@
 
 ## Installation
 
-- Download .Net Core: https://dotnet.microsoft.com/en-us/
+- Download .Net Core: <https://dotnet.microsoft.com/en-us/>
   - after installation, run `dotnet --info` to verify.
 - Install Node.js
 
@@ -231,4 +231,59 @@ ng add ngx-bootstrap
 npm install font-awesome
 ```
 
-### Use HTTPS in Mac (SSL)
+### Use HTTPS for Augular SSL
+
+Refer to the vedio section 3-28.
+Basically you will have/generate two files like: server.crt, server.key
+
+<details>
+
+<summary>for Mac</summary>
+
+1. Double click on the certificate (server.crt)
+2. Select your desired keychain (login should suffice)
+3. Add the certificate
+4. Open Keychain Access if it isn’t already open
+5. Select the keychain you chose earlier
+6. You should see the certificate localhost
+7. Double click on the certificate
+8. Expand Trust
+9. Select the option Always Trust in When using this certificate
+10. Close the certificate window and you should be asked to enter password!
+
+The certificate is now installed.
+
+</details>
+
+<details>
+  <summary>For windows</summary>
+
+1. Double click on the certificate (server.crt)
+2. Click on the button “Install Certificate …”
+3. Select whether you want to store it on user level or on machine level
+4. Click “Next”
+5. Select “Place all certificates in the following store”
+6. Click “Browse”
+7. Select “Trusted Root Certification Authorities”
+8. Click “Ok”
+9. Click “Next”
+10. Click “Finish”
+
+</details>
+
+Once certificate is installed, we need to go to `angular.json` and add the following in "server":
+
+```json
+{
+  "server": {
+    "options": {
+      "sslCert": "./ssl/server.crt",
+      "sslKey": "./ssl/server.key",
+      "ssl": true,
+      "browserTarget": "test:build"
+    }
+  }
+}
+```
+
+Then, re-run the API server and angular app.
