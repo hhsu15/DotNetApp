@@ -287,3 +287,26 @@ Once certificate is installed, we need to go to `angular.json` and add the follo
 ```
 
 Then, re-run the API server and angular app.
+
+## Authentication
+
+Let's implement some simple authentication. The idea is hasing the password and on top of that, use something called salting to scramble the hashed password to make it more secure. For the real world app, we will be using ASP.NET Core Identity which is widely used and battle hardened.
+
+Refer to `API.Entities.AppUser`
+
+Once the new properties are added you need to run migrations again:
+
+```bash
+dotnet ef migrations add UserPasswordAdded
+```
+
+Then the class will be added to the `Migrations`.
+
+Then you need to update the actual db table by running:
+
+```bash
+dotnet ef database update
+
+```
+
+Then you can go to the database (use the command palette search for "SQL")
