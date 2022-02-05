@@ -9,10 +9,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace API.Controllers
 {
-    // Give the controller some attributes
-    [ApiController]
-    [Route("api/[controller]")]  // in order to use this controller, client will have to specify the rounte this way, for example api/users (with the Controller parrt)
-    public class UsersController : ControllerBase
+
+    public class UsersController : BaseApiController
     {
         private readonly DataContext _context;
         public UsersController(DataContext context)

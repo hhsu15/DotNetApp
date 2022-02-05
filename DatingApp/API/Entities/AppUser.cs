@@ -15,5 +15,6 @@ namespace API.Entities
         // properties for password and salt
         public byte[] PasswordHash { get; set; }
         public byte[] PasswordSalt { get; set; }
+
     }
 }

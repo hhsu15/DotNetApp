@@ -310,3 +310,25 @@ dotnet ef database update
 ```
 
 Then you can go to the database (use the command palette search for "SQL")
+
+## VS Code debugger
+
+In `.vscode/launch.json`, you can see under `configuration`, there is this:
+
+```json
+{
+  "name": ".NET Core Attach",
+  "type": "coreclr",
+  "request": "attach"
+}
+```
+
+Then you can go _Run and Debug_ button and select ".Net Core Attached".
+
+For Windows, then you would search some keyword "API" and it will attach to the .exe file and then once you click on it, it will start the debugger where the process stops at your breakpoint.
+
+### DTO
+
+In order to receive the properties from the request body (as opposed to query string) we need to use DTO(Data transfer property). Also you can hide certain properties of an object so it's a good idea to return to the client with DTO.
+
+Make sure when you send the requst from Postman, use the type JSON(application/json), otherwise you get 415 error.
