@@ -373,3 +373,12 @@ Benefits of JWT
 - portable - a single token can be used with multiple backends
 - no cookie required
 - Server does not need to make a query to db to verify user once a token issued (bc it can just use the signature)
+
+### Add TokenService
+
+We create an interface for best practice but the important thing here is to create a separate service whose purpose is only creating the token.
+See `Services.TokenService.cs`.
+
+Next, we need to add go to the `Startup.cs` and add the serivce to the dependency injection container so we can take in the `config` from the `Startup` class. We use services.AddScoped. Tells the service how long should the service be alive for after we start the service. For a service we want to just create a token, it does not need to be around forever. Scoped is appropriate since it will be teared down as soon as the request is resolved.
+
+Then, go to the Nuget Gallary and search for `System.IdentityModel.Tokens.JWT`, insall the dependency.
