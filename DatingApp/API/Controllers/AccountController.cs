@@ -23,7 +23,7 @@ namespace API.Controllers
         [HttpPost("register")]  // create a new user post request
         public async Task<ActionResult<AppUser>> Register(RegisterDto registerDto)
         {
-            // if (await UserExists(registerDto.Username)) return BadRequest("Username is taken");
+            if (await UserExists(registerDto.Username)) return BadRequest("Username is taken");
 
             // the "using" statement ensures to call the .despose method 
             // everytime when it's finished, it releases resourse - similar to the context manager
@@ -44,6 +44,32 @@ namespace API.Controllers
 
             return user;
         }
+
+        [HttpPost("login")]
+        public async Task<ActionResult<AppUser>> Login(LoginDto loginDto)
+        {
+            // retrieve user from db using SingleOrDefaultAsync
+            var user = await _context.Users.
+                SingleOrDefaultAsync(x => x.UserName == loginDto.Username);
+
+            if (user == null) return Unauthorized("Invalid username");
+
+            // if user is found, need to calculate the hash for the password to match the pw in db
+            // this time, take the Salt from user and compute 
+            using var hmac = new HMACSHA512(user.PasswordSalt);
+            var comuputedHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(loginDto.Password));
+            // compare the value
+            for (int i = 0; i < comuputedHash.Length; i++)
+            {
+                if (comuputedHash[i] != user.PasswordHash[i]) return Unauthorized("Invalid Password");
+            }
+
+            return user;
+
+        }
+
+
+
         // async task that's returnning a bool value.
         // check if there is an entry already in db
         private async Task<bool> UserExists(string username)

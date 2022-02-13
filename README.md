@@ -332,3 +332,44 @@ For Windows, then you would search some keyword "API" and it will attach to the 
 In order to receive the properties from the request body (as opposed to query string) we need to use DTO(Data transfer property). Also you can hide certain properties of an object so it's a good idea to return to the client with DTO.
 
 Make sure when you send the requst from Postman, use the type JSON(application/json), otherwise you get 415 error.
+
+### Add validation for data parameters
+
+One of the features of BaseApiController attribute is to automatically provide validation for the attributes sent to the endpoint.
+
+You can use something called "Data validation" in the DTO. You use the "[Required]" attribute. Then you can do all kinds of validation such as Regex, length etc.
+
+```cs
+// a simple requred
+[Required]
+public string Username { get; set; }
+```
+
+### Clean up the db
+
+```bash
+dotnet ef database drop # drop the db
+dotnet ef datanase update # this will look and migration and recreate the db
+
+```
+
+## JWT
+
+Scructure: JWT has three parts:
+
+- header
+- payload: contains user id, role, date can be used after, expiration date, issue at date.
+- token signatue (this only part that is really encripted and can be only decrypted by server)
+
+The process for JWT:
+
+- client logs in -> request with id/pw -> server
+- server validates credentials and creates a token -> client
+- client stores token in browser, and sends JWT (via header) with further requests
+
+Benefits of JWT
+
+- No session to manage - JWTs are self contained tokens (bc it has exp date etc)
+- portable - a single token can be used with multiple backends
+- no cookie required
+- Server does not need to make a query to db to verify user once a token issued (bc it can just use the signature)
