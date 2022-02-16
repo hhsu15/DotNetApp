@@ -358,7 +358,11 @@ dotnet ef datanase update # this will look and migration and recreate the db
 Scructure: JWT has three parts:
 
 - header
-- payload: contains user id, role, date can be used after, expiration date, issue at date.
+- payload: contains
+  - userid
+  - nbf(not before date)
+  - exp (expiration date)
+  - iat (issue at date)
 - token signatue (this only part that is really encripted and can be only decrypted by server)
 
 The process for JWT:
@@ -382,3 +386,27 @@ See `Services.TokenService.cs`.
 Next, we need to add go to the `Startup.cs` and add the serivce to the dependency injection container so we can take in the `config` from the `Startup` class. We use services.AddScoped. Tells the service how long should the service be alive for after we start the service. For a service we want to just create a token, it does not need to be around forever. Scoped is appropriate since it will be teared down as soon as the request is resolved.
 
 Then, go to the Nuget Gallary and search for `System.IdentityModel.Tokens.JWT`, insall the dependency.
+
+### Add Authentication middleware
+
+!This is very usefule!
+
+To authorize users using attributs such as [AllowAnonymous] which will allow everyone. Refer to `UserController.cs`.
+
+We will need another package for authorization. Go to nuget gallary -> Microsoft.AspNetCore.Authentication.JwtBearer.
+
+Once the dependency is added, be sure to go to `Startup.cs` and use services.AddAuthentication and a bunch of code.
+
+Once the authentication is added, in order to be authenticated, when we make a getUser request we need to add the token to the `headers`, using the Postman with the following
+
+```bash
+key: Authorization
+value: bearer <token>
+
+```
+
+## Extention methods
+
+Here we extends the IServiceCollection to add some more methods.
+
+Create a folder called `extensions` and then create a `public static class`, inside the class, create a public static method. This way, in the `Startup.cs` you can just do `services.your_method` (be sure to bring in the API.Extensions) to make your code cleaner.

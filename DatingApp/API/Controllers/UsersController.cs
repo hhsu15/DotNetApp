@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using API.Data;
 using API.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -30,6 +31,7 @@ namespace API.Controllers
         // the async way. Use Task to wrap the function, 
         // await the result and use the async version ToListAsync
         [HttpGet]  // for get request, api/users
+        [AllowAnonymous]
         public async Task<ActionResult<IEnumerable<AppUser>>> GetUsers()
         {
             return await _context.Users.ToListAsync();
@@ -45,6 +47,7 @@ namespace API.Controllers
         // }
 
         // async way
+        [Authorize]  // require authorization
         [HttpGet("{id}")]  // e.g., api/users/3
         public async Task<ActionResult<AppUser>> GetUser(int id)
         {
