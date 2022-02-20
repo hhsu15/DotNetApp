@@ -288,9 +288,23 @@ Once certificate is installed, we need to go to `angular.json` and add the follo
 
 Then, re-run the API server and angular app.
 
+## Server side API Learning Goaals
+
+In this one, we will learn:
+
+- How to store password in BD
+- Use inheritance in C#
+- Use debugger
+- Use DTO (data transfer objects)
+- Validation
+- JWT
+- Use services in C#
+- Middleware for authentication
+- Extension methods
+
 ## Authentication
 
-Let's implement some simple authentication. The idea is hasing the password and on top of that, use something called salting to scramble the hashed password to make it more secure. For the real world app, we will be using ASP.NET Core Identity which is widely used and battle hardened.
+The idea is hasing the password and on top of that, use something called salting to scramble the hashed password to make it more secure. For the real world app, we will be using ASP.NET Core Identity which is widely used and battle hardened.
 
 Refer to `API.Entities.AppUser`
 
@@ -407,6 +421,93 @@ value: bearer <token>
 
 ## Extention methods
 
+C# Extension allows us to create methods for exising class without having to create a derived/inherited class.
+
 Here we extends the IServiceCollection to add some more methods.
 
 Create a folder called `extensions` and then create a `public static class`, inside the class, create a public static method. This way, in the `Startup.cs` you can just do `services.your_method` (be sure to bring in the API.Extensions) to make your code cleaner.
+
+## Client side Angular Learning Goaals
+
+Goals:
+
+- create Angular components
+- Use Angular Template forms
+- use Angular services
+- Understand Observables
+- Use Angular structural directives to conditionally display elements
+- Component communication
+
+### Create Components
+
+Use this commnad to see the things you can generate wiith angular command
+
+```bash
+
+ng g -h  # g means --generate
+```
+
+To create a component, do the following. Make sure you do this under the `src/app` folder
+
+```bash
+ng g c {name}  --skip-tests# c means component and skip creating test files
+
+```
+
+By doing so, it will create a folder with the files and also add the component to the `app.module.ts`.
+
+#### Use Boostrap
+
+We can cheat a little bit...
+
+For example, to build a `nav bar`, we can just go to getbootsrap.com and serarch in the examples. When you find a good one, then open inspector and grap the <nav> element with its class :P.
+
+### Angular FormsModule
+
+Use Angular FormsModule. Go to the `add.module.ts` and put in the imports.
+
+In the component.html file, you can make a form an Angular Form by using this:
+
+```typescript
+<form
+        #loginForm="ngForm"
+        (ngSubmit)="login()"
+        <button type="submit">Submit</buttion>
+</form>
+```
+
+the `(ngSubmit)` will let you specify on submit which method from the component should be called.
+
+#### 2-way binding
+
+In Angular, to use the 2-way binding, you need to give it a property called "name", and add `[(ngModel)]="model.your_data"
+For example:
+
+```typescript
+<input
+  name="username"
+  [(ngModel)]="model.username"
+  type="text"
+>
+</input>
+
+```
+
+So now you will be able to take the input values from the user from the `model` variable.
+
+### Angular services
+
+Go to `src/app/_services` where you created your \_services folder and run:
+
+```bash
+ng g s account --skip-tests
+```
+
+This will create an angular service called "account".
+
+Couple of points here for angular services:
+
+- services are injectable. I.e., inject the services into a component
+- services are singleton. They will be arond untile say, the browser is closed, even if they are not being used.
+
+-
