@@ -497,7 +497,39 @@ So now you will be able to take the input values from the user from the `model` 
 
 ### Angular services
 
-Go to `src/app/_services` where you created your \_services folder and run:
+The way Angular services work is that you have your service class which is decorated by injectable function. Looks like below. You specify the root it will then be automatically creates an instance and inject into your component where you need this service:
+
+```typescript
+@Injectable({
+  providedIn: 'root'
+})
+export class AccountService {
+  baseUrl = 'https://localhost:5001/api/';
+  constructor(private http: HttpClient) {}
+
+  login(model: any) {
+    return this.http.post(this.baseUrl + 'account/login', model);
+  }
+}
+```
+
+Then make sure you configure
+and then you can use it like this in your component:
+
+```typescript
+@Component({
+  selector: 'app-nav',
+  templateUrl: './nav.component.html',
+  styleUrls: ['./nav.component.css']
+})
+export class NavComponent implements OnInit {
+  // inject service into this component - dependency injection
+  constructor(private accountService: AccountService) {}
+  ...
+
+```
+
+Refer to `src/app/_services` where you created your \_services folder and run:
 
 ```bash
 ng g s account --skip-tests
@@ -510,4 +542,68 @@ Couple of points here for angular services:
 - services are injectable. I.e., inject the services into a component
 - services are singleton. They will be arond untile say, the browser is closed, even if they are not being used.
 
--
+### Angular directives
+
+There are angular directives you use in the `*.component.ts` file.
+For example:
+
+- \*ngIf="name_of_field" # when the field is a type of boolean
+
+Or things like this:
+
+```html
+<form
+  #loginForm="ngForm"
+  class="form-inline mt-2 mt-md-0"
+  (ngSubmit)="login()"
+  autocomplete="off"
+>
+  <input
+    name="username"
+    [(ngModel)]="model.username"
+    class="form-control mr-md-0"
+    type="text"
+    placeholder="Username"
+  />
+</form>
+```
+
+### ngx-boostrap
+
+https://valor-software.com/ngx-bootstrap/#/components
+
+Add the module in the `app.modules.ts`.
+
+- In our `nav.compponent.html` we use the dropdown directive (it's just standalone "dropdown" in a div tag)
+
+### Observables
+
+- New standard for ES2016 (ES7)
+- lazy collections of multiple values over time
+- like newsletter, only subscribers of the newsletter receive the newsletter
+  - if no one subscribes, then it won't be printed out
+
+#### Observables and RxJS
+
+You can use `observable.pipe(...)` to process the data before it gets to the subscribers. For example:
+
+```typescript
+// return an array of member id
+getMembers(){
+  return this.http.get("api/users").pipe(
+    map(members => {
+      console.log(member.id)
+      return member.id
+    })
+  )
+}
+
+```
+
+#### Async Pipe
+
+Automatically subscribes/unsubscribes from the Observable
+
+```html
+<li *ngFor="let number of service.getMembers() | async">{{member.username}}</li>
+```
