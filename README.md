@@ -30,7 +30,7 @@ dotnet sln add API
 
 - Install extension for C# for Visual Studio Code
 - In command pallette, search for Assets and run the command
-- Install something called `C# extensions`
+- Install something called `C# extensions`. This will allow you to easily create a class file by right clicking in the explore.
 - Install `Material Icon Theme` from extension
 - Go to settings and use `exclude` for patterns like `**/obj` and `**/bin` to hide those folders since we never need to modify them - they just get auto-recreated.
 
@@ -89,7 +89,11 @@ The Microsoft ORM framework.
 
 We will need the package manager. first, search `nuget gallery` in extensions in VS code and instll it. Once done, we will use Command Palette and type `nuget`. Select the first one that pops up. Now you will be able to obtain libraries for C#!
 
-Here, we want to install `Microsoft.EntityFrameworkCore.SQlite`. By doing so, you will find in `API.csprog` file now shows the package reference.
+Here, we want to install `Microsoft.EntityFrameworkCore.SQlite`. _Be sure to install the version that matches your runtime_. After installing the package to your project, you should find in `API.csprog` file now shows the package reference.
+
+After setting up the data class (refer to API/Data/DataContext.cs), we will go to the `Startup.cs` and add this to the `ConfigureServices`. This will how the service works using dependecy injection.
+
+Here we did a little refactoring by extending the `IServiceCollection` class ad organize all the custom services in it. Refer to `API/Extensions`. The result is the `Startup.cs` looks a lot cleaner.
 
 **tips for VS Code**
 
@@ -100,7 +104,7 @@ Here, we want to install `Microsoft.EntityFrameworkCore.SQlite`. By doing so, yo
 ### Setting up SQL connection
 
 In the example, we will use SQLlite for our database. See `appsetting.Development.json` for configuration. The code will be in `Startup.cs`.
-Then, we will need to download dotnet-ef using the command from this [link](nuget.org/packages/dotnet-ef/). Basically the command looks like this:
+Then, we will need to download `dotnet-ef` using the command from this [link](nuget.org/packages/dotnet-ef/). Basically the command looks like this:
 
 ```bash
 dotnet tool install --global dotnet-ef --version 6.0.1
@@ -130,8 +134,8 @@ Now you can run below command to create a db.
 dotnet ef database update
 ```
 
-Now the database is created. To see the database and tables, we download the extension called "SQLite".
-Once download and you can run command palette and type SQLite to open the database. Then you will find some files have been created.
+Now the database is created. To see the database and tables, we download the extension called `SQLite`.
+Once download and you can run command palette and type SQLite to open the database. Then you will find some files that have been created.
 
 You can then find that under Explorer there is a section called SQLITE EXPLORER. From there you can right click to run Query. We first use it to insert some records into the table.
 
@@ -219,7 +223,7 @@ services.AddCors();
 
 ### Angular Bootstrap
 
-Install angular bootstrap 4
+Install ngx-bootstrap
 
 ```bash
 ng add ngx-bootstrap
@@ -227,7 +231,7 @@ ng add ngx-bootstrap
 
 #### Install font-awesome
 
-```
+```sh
 npm install font-awesome
 ```
 

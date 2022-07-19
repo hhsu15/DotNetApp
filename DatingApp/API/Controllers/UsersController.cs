@@ -13,8 +13,8 @@ namespace API.Controllers
 
     public class UsersController : BaseApiController
     {
-        private readonly DataContext _context;
-        public UsersController(DataContext context)
+        private readonly DataContext _context;  
+        public UsersController(DataContext context) // use the DataContext to access db
         {
             _context = context;
         }

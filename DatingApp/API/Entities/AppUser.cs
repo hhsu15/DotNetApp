@@ -11,7 +11,8 @@ namespace API.Entities
         // so it will be treated as primary key 
         public int Id { get; set; }
         public string UserName { get; set; }
-
+        
+        
         // properties for password and salt
         public byte[] PasswordHash { get; set; }
         public byte[] PasswordSalt { get; set; }

@@ -9,11 +9,11 @@ namespace API.Data
 {
     public class DataContext : DbContext  // this comes from Microsoft.EntityFrameworkCore
     {
+        // you need this line to make it work
         public DataContext(DbContextOptions options) : base(options)
         {
         }
 
-        
         public DbSet<AppUser> Users { get; set; }
     }
 }

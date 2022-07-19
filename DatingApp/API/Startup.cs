@@ -25,8 +25,8 @@ namespace API
     public class Startup
     {
         private readonly IConfiguration _config;
-
-        public Startup(IConfiguration config)
+    
+        public Startup(IConfiguration config) // constructor
         {
             _config = config;
 
@@ -40,7 +40,7 @@ namespace API
             // basically here to inject the dependencies
             services.AddApplicationServices(_config);
             services.AddControllers();
-            services.AddCors();
+            services.AddCors(); // this is needed to allow your UI to call you from a different port
             services.AddIdentityServices(_config);
 
             services.AddSwaggerGen(c =>
@@ -65,6 +65,7 @@ namespace API
             app.UseRouting();
 
             // specify our Cors policy
+            // the oder matters, it has to be in between app.UseRouting and app.UseEndpoings
             app.UseCors(policy => policy.AllowAnyHeader().AllowAnyMethod().WithOrigins("https://localhost:4200"));
 
             // use authentication
