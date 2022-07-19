@@ -238,7 +238,9 @@ npm install font-awesome
 ### Use HTTPS for Augular SSL
 
 Refer to the vedio section 3-28.
-Basically you will have/generate two files like: server.crt, server.key
+Basically you will have/generate two files like: server.crt, server.key.
+
+Also refer to `generateTrustedSSL` to see how to create trusted ssl.
 
 <details>
 
